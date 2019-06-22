@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const amqpClient = require('amqplib')
+const amqpClient = require('amqplib/callback_api')
 
 function fastifyAmqp (fastify, opts, next) {
   const host = opts.host
@@ -27,6 +27,7 @@ function fastifyAmqp (fastify, opts, next) {
       }
 
       fastify.decorate('amqpChannel', channel)
+      next()
     })
   })
 
