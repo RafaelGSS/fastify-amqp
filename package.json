@@ -1,0 +1,30 @@
+{
+  "name": "fastify-amqp",
+  "version": "1.0.0",
+  "description": "Fastify AMQP connection plugin, to use with RabbitMQ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelGSS/fastify-amqp.git"
+  },
+  "keywords": [
+    "rabbitmq",
+    "connection",
+    "amqp",
+    "messager",
+    "queue",
+    "fastify"
+  ],
+  "author": "Rafael Gonzaga - @rafaelgss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RafaelGSS/fastify-amqp/issues"
+  },
+  "homepage": "https://github.com/RafaelGSS/fastify-amqp#readme",
+  "dependencies": {
+    "fastify-plugin": "^1.6.0"
+  }
+}
