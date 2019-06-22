@@ -19,7 +19,7 @@ function fastifyAmqp (fastify, opts, next) {
     }
     fastify.addHook('onClose', () => connection.close())
     fastify.decorate('amqpConn', connection)
-    
+
     connection.createChannel(function (err1, channel) {
       if (err1) {
         next(err1)
@@ -30,7 +30,6 @@ function fastifyAmqp (fastify, opts, next) {
       next()
     })
   })
-
 }
 
 module.exports = fp(fastifyAmqp, {
