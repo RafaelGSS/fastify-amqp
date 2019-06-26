@@ -4,7 +4,7 @@ const Fastify = require('fastify')
 const fastifyAmqp = require('./index')
 
 const PORT_OK = 5672
-const HOST_OK = '127.0.0.1'
+const HOST_OK = 'localhost'
 const HOST_INVALID = '1234'
 
 test('undefined connection', t => {
