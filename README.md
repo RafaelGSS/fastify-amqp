@@ -30,7 +30,11 @@ const fastify = require('fastify')()
 fastify.register(require('fastify-amqp'), {
   host: 'localhost',
   // the default value is 5672
-  port: 5672
+  port: 5672,
+  // the default value is 5672
+  user: 'guest',
+  // the default value is 5672
+  pass: 'guest'
 })
 
 fastify.get('/', function (request, reply) {
