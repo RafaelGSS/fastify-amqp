@@ -1,6 +1,6 @@
 {
   "name": "fastify-amqp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Fastify AMQP connection plugin, to use with RabbitMQ",
   "main": "index.js",
   "scripts": {
