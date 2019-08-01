@@ -33,9 +33,9 @@ fastify.register(require('fastify-amqp'), {
   host: 'localhost',
   // the default value is 5672
   port: 5672,
-  // the default value is 5672
+  // the default value is guest
   user: 'guest',
-  // the default value is 5672
+  // the default value is guest
   pass: 'guest'
 })
 
