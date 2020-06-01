@@ -4,6 +4,7 @@ const Fastify = require('fastify')
 const fastifyAmqp = require('./index')
 
 const PORT_OK = 5672
+const VHOST_OK = 'vhost'
 const HOST_OK = 'localhost'
 const HOST_INVALID = '1234'
 
@@ -41,6 +42,21 @@ test('connection ok without send port', t => {
 
   app.register(fastifyAmqp, {
     host: HOST_OK
+  }).ready(err => {
+    t.error(err)
+    t.ok(app.amqpConn)
+    t.ok(app.amqpChannel)
+  })
+})
+
+test('connection ok with vhost', t => {
+  t.plan(3)
+  const app = build(t)
+
+  app.register(fastifyAmqp, {
+    host: HOST_OK,
+    port: PORT_OK,
+    vhost: VHOST_OK
   }).ready(err => {
     t.error(err)
     t.ok(app.amqpConn)

@@ -37,6 +37,8 @@ fastify.register(require('fastify-amqp'), {
   user: 'guest',
   // the default value is guest
   pass: 'guest'
+  // the default value is empty
+  vhost: ''
 })
 
 fastify.get('/', function (request, reply) {
