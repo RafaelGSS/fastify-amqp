@@ -4,7 +4,7 @@ const Fastify = require('fastify')
 const fastifyAmqp = require('./index')
 
 const PORT_OK = 5672
-const VHOST_OK = 'vhost'
+const VHOST_OK = 'defaultVHOST'
 const HOST_OK = 'localhost'
 const HOST_INVALID = '1234'
 

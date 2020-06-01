@@ -9,6 +9,8 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:10.15
       - image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_VHOST: defaultVHOST
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
