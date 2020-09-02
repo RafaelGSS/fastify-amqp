@@ -59,6 +59,7 @@ test('connection ok', t => {
     t.error(err)
     t.ok(app.amqpConn)
     t.ok(app.amqpChannel)
+    t.close()
   })
 })
 
