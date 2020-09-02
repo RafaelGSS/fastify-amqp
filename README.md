@@ -1,6 +1,6 @@
 # fastify-amqp
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
-[![CircleCI](https://circleci.com/gh/RafaelGSS/fastify-amqp.svg?style=svg)](https://circleci.com/gh/RafaelGSS/fastify-amqp)
+![CI workflow](https://github.com/RafaelGSS/fastify-amqp/workflows/CI%20workflow/badge.svg?branch=master)
 
 Fastify AMQP connection plugin wrapper to amqplib, to use with RabbitMQ
 
