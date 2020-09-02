@@ -1,4 +1,4 @@
-import amqpClient, { Connection, Channel } from 'amqplib/callback_api';
+import { Connection, Channel } from 'amqplib/callback_api';
 import fastify, { FastifyPlugin } from 'fastify';
 
 declare namespace fastifyAmqp {

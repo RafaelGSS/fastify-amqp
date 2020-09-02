@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/amqplib": "^0.5.13",
-    "fastify": "^2.5.0",
+    "fastify": "^3.3.0",
     "pre-commit": "^1.2.2",
     "standard": "^12.0.1",
     "tap": "^14.2.5",
