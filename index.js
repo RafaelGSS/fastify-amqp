@@ -13,8 +13,9 @@ function fastifyAmqp (fastify, opts, next) {
   const port = opts.port || 5672
   const user = opts.user || 'guest'
   const pass = opts.pass || 'guest'
+  const timeout = opts.timeout || 10000
 
-  amqpClient.connect(`amqp://${user}:${pass}@${host}:${port}`, function (err, connection) {
+  amqpClient.connect(`amqp://${user}:${pass}@${host}:${port}`, { timeout }, function (err, connection) {
     if (err) {
       next(err)
       return
