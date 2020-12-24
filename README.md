@@ -30,6 +30,8 @@ npm test
 const fastify = require('fastify')()
 
 fastify.register(require('fastify-amqp'), {
+  // the default value is amqp
+  protocol: 'amqp',
   host: 'localhost',
   // the default value is 5672
   port: 5672,
