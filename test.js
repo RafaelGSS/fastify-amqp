@@ -9,30 +9,31 @@ const HOST_INVALID = '1234'
 const PROTOCOL_OK = 'amqp'
 
 test('undefined connection', t => {
-  t.plan(4)
+  t.plan(3)
   const app = build(t)
 
   app.register(fastifyAmqp, {}).ready(err => {
     t.equal(typeof err, typeof {})
     t.assert(err instanceof Error)
 
-    t.notOk(app.amqpConn, 'Should not has amqpConn')
-    t.notOk(app.amqpChannel, 'Should not has amqpChannel')
+    t.notOk(app.amqp, 'Should not have amqp decorator')
   })
 })
 
 test('invalid connection', t => {
-  t.plan(4)
+  t.plan(3)
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_INVALID
+    hostname: HOST_INVALID,
+    socket: {
+      timeout: 10000
+    }
   }).ready(err => {
     t.equal(typeof err, typeof {})
     t.assert(err instanceof Error)
 
-    t.notOk(app.amqpConn, 'Should not has amqpConn')
-    t.notOk(app.amqpChannel, 'Should not has amqpChannel')
+    t.notOk(app.amqp, 'Should not have amqp decorator')
   })
 })
 
@@ -41,25 +42,38 @@ test('connection ok without send port', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK
+    hostname: HOST_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 
-test('connection ok', t => {
+test('connection object', t => {
   t.plan(3)
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK,
+    hostname: HOST_OK,
     port: PORT_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
+  })
+})
+
+test('connection url', t => {
+  t.plan(3)
+  const app = build(t)
+
+  app.register(fastifyAmqp, {
+    url: `${PROTOCOL_OK}://${HOST_OK}:${PORT_OK}`
+  }).ready(err => {
+    t.error(err)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 
@@ -68,12 +82,12 @@ test('connection with protocol ok', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK,
+    hostname: HOST_OK,
     protocol: PROTOCOL_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 

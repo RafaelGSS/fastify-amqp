@@ -32,19 +32,19 @@ const fastify = require('fastify')()
 fastify.register(require('fastify-amqp'), {
   // the default value is amqp
   protocol: 'amqp',
-  host: 'localhost',
+  hostname: 'localhost',
   // the default value is 5672
   port: 5672,
   // the default value is guest
-  user: 'guest',
+  username: 'guest',
   // the default value is guest
-  pass: 'guest'
+  password: 'guest'
   // the default value is empty
   vhost: ''
 })
 
 fastify.get('/', function (request, reply) {
-  const channel = this.amqpChannel
+  const channel = this.amqp.channel
 
   const queue = 'hello'
   const msg = 'Hello world'
@@ -68,8 +68,8 @@ This plugin is just a wrapper to [amqplib](https://github.com/squaremo/amqp.node
 
 Contains:
 
-- amqpConn API to [here](http://www.squaremobius.net/amqp.node/channel_api.html#api_reference)
-- amqpChannel API to [here](http://www.squaremobius.net/amqp.node/channel_api.html#channel)
+- `amqp.connection` API to [here](http://www.squaremobius.net/amqp.node/channel_api.html#api_reference)
+- `amqp.channel` API to [here](http://www.squaremobius.net/amqp.node/channel_api.html#channel)
 
 ## Dependencies
 

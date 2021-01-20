@@ -1,38 +1,46 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const amqpClient = require('amqplib/callback_api')
+const amqpClient = require('amqplib')
 
-function fastifyAmqp (fastify, opts, next) {
-  const host = opts.host
-
-  if (!host) {
-    next(new Error('`host` parameter is mandatory'))
-    return
-  }
-  const protocol = opts.protocol || 'amqp'
-  const port = opts.port || 5672
-  const user = opts.user || 'guest'
-  const pass = opts.pass || 'guest'
-  const timeout = opts.timeout || 10000
-
-  amqpClient.connect(`${protocol}://${user}:${pass}@${host}:${port}`, { timeout }, function (err, connection) {
-    if (err) {
-      next(err)
-      return
+function getTarget ({
+  frameMax,
+  heartbeat,
+  hostname,
+  locale,
+  password,
+  port,
+  url,
+  username,
+  vhost
+}) {
+  if (url) {
+    return url
+  } else if (hostname) {
+    return {
+      frameMax,
+      heartbeat,
+      hostname,
+      locale,
+      password,
+      port,
+      username,
+      vhost
     }
-    fastify.addHook('onClose', () => connection.close())
-    fastify.decorate('amqpConn', connection)
+  } else {
+    throw new Error('`url` parameter is mandatory if no hostname is provided')
+  }
+}
 
-    connection.createChannel(function (err1, channel) {
-      if (err1) {
-        next(err1)
-        return
-      }
+async function fastifyAmqp (fastify, options) {
+  const connection = await amqpClient.connect(getTarget(options), options.socket)
+  fastify.addHook('onClose', () => connection.close())
 
-      fastify.decorate('amqpChannel', channel)
-      next()
-    })
+  const channel = await connection.createChannel()
+
+  fastify.decorate('amqp', {
+    connection,
+    channel
   })
 }
 
