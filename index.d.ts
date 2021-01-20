@@ -1,16 +1,16 @@
-import { Connection, Channel } from 'amqplib/callback_api';
+import { Connection, Channel } from 'amqplib';
 import { FastifyPluginAsync } from 'fastify';
 
 declare namespace fastifyAmqp {
-  type FastifyAmqpConnObject = Connection
+  type FastifyAmqpConnObject = Connection;
 
-  type FastifyAmqpChannelObject = Channel
+  type FastifyAmqpChannelObject = Channel;
 
   interface FastifyAmqpOptions {
     /**
      * Full connection URL
      */
-    url?: string
+    url?: string;
     /**
      * Host of connection
      */
@@ -51,14 +51,16 @@ declare namespace fastifyAmqp {
     /**
      * Socket options
      */
-    socket?: any
+    socket?: any;
   }
 }
 
 declare module 'fastify' {
   interface FastifyInstance {
-    amqpConn: fastifyAmqp.FastifyAmqpConnObject;
-    amqpChannel: fastifyAmqp.FastifyAmqpChannelObject;
+    amqp: {
+      connection: fastifyAmqp.FastifyAmqpConnObject;
+      channel: fastifyAmqp.FastifyAmqpChannelObject;
+    }
   }
 }
 

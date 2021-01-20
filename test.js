@@ -16,8 +16,7 @@ test('undefined connection', t => {
     t.equal(typeof err, typeof {})
     t.assert(err instanceof Error)
 
-    t.notOk(app.amqpConn, 'Should not has amqpConn')
-    t.notOk(app.amqpChannel, 'Should not has amqpChannel')
+    t.notOk(app.amqp, 'Should not have amqp decorator')
   })
 })
 
@@ -31,8 +30,7 @@ test('invalid connection', t => {
     t.equal(typeof err, typeof {})
     t.assert(err instanceof Error)
 
-    t.notOk(app.amqpConn, 'Should not has amqpConn')
-    t.notOk(app.amqpChannel, 'Should not has amqpChannel')
+    t.notOk(app.amqp, 'Should not have amqp decorator')
   })
 })
 
@@ -44,8 +42,8 @@ test('connection ok without send port', t => {
     hostname: HOST_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 
@@ -58,8 +56,8 @@ test('connection ok', t => {
     port: PORT_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 
@@ -72,8 +70,8 @@ test('connection with protocol ok', t => {
     protocol: PROTOCOL_OK
   }).ready(err => {
     t.error(err)
-    t.ok(app.amqpConn)
-    t.ok(app.amqpChannel)
+    t.ok(app.amqp.connection)
+    t.ok(app.amqp.channel)
   })
 })
 
