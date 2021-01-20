@@ -44,7 +44,7 @@ fastify.register(require('fastify-amqp'), {
 })
 
 fastify.get('/', function (request, reply) {
-  const channel = this.amqpChannel
+  const channel = this.amqp.channel
 
   const queue = 'hello'
   const msg = 'Hello world'
