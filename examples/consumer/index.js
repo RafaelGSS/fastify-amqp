@@ -1,10 +1,10 @@
 const Fastify = require('fastify')
 
-const app = Fastify()
+const app = Fastify({ logger: true })
 
-app.register(require('fastify-amqp'), {
+app.register(require('../../index'), {
   hostname: 'localhost'
-}).after(function (err) {
+}).ready(function (err) {
   if (err) throw err
 
   if (!app.hasDecorator('amqp')) {
