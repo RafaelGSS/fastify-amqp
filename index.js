@@ -35,7 +35,7 @@ function getTarget ({
 async function fastifyAmqp (fastify, options) {
   const connection = await amqpClient.connect(getTarget(options), options.socket)
   fastify.addHook('onClose', () => connection.close())
-  
+
   const channel = await connection.createChannel()
 
   fastify.decorate('amqp', {
