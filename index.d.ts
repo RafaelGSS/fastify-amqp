@@ -1,5 +1,5 @@
 import { Connection, Channel } from 'amqplib/callback_api';
-import { FastifyPluginCallback } from 'fastify';
+import { FastifyPluginAsync } from 'fastify';
 
 declare namespace fastifyAmqp {
   type FastifyAmqpConnObject = Connection
@@ -62,6 +62,6 @@ declare module 'fastify' {
   }
 }
 
-declare const fastifyAmqp: FastifyPluginCallback<fastifyAmqp.FastifyAmqpOptions>;
+declare const fastifyAmqp: FastifyPluginAsync<fastifyAmqp.FastifyAmqpOptions>;
 
 export default fastifyAmqp;

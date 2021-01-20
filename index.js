@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const amqpClient = require('amqplib/callback_api')
+const amqpClient = require('amqplib')
 
 function getTarget ({
   frameMax,
@@ -32,25 +32,13 @@ function getTarget ({
   }
 }
 
-function fastifyAmqp (fastify, options, next) {
-  amqpClient.connect(getTarget(options), options.socket, function (err, connection) {
-    if (err) {
-      next(err)
-      return
-    }
-    fastify.addHook('onClose', () => connection.close())
-    fastify.decorate('amqpConn', connection)
+async function fastifyAmqp (fastify, options) {
+  const connection = await amqpClient.connect(getTarget(options), options.socket)
+  fastify.addHook('onClose', () => connection.close())
+  fastify.decorate('amqpConn', connection)
 
-    connection.createChannel(function (err1, channel) {
-      if (err1) {
-        next(err1)
-        return
-      }
-
-      fastify.decorate('amqpChannel', channel)
-      next()
-    })
-  })
+  const channel = await connection.createChannel()
+  fastify.decorate('amqpChannel', channel)
 }
 
 module.exports = fp(fastifyAmqp, {
