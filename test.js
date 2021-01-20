@@ -26,7 +26,7 @@ test('invalid connection', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_INVALID
+    hostname: HOST_INVALID
   }).ready(err => {
     t.equal(typeof err, typeof {})
     t.assert(err instanceof Error)
@@ -41,7 +41,7 @@ test('connection ok without send port', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK
+    hostname: HOST_OK
   }).ready(err => {
     t.error(err)
     t.ok(app.amqpConn)
@@ -54,7 +54,7 @@ test('connection ok', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK,
+    hostname: HOST_OK,
     port: PORT_OK
   }).ready(err => {
     t.error(err)
@@ -68,7 +68,7 @@ test('connection with protocol ok', t => {
   const app = build(t)
 
   app.register(fastifyAmqp, {
-    host: HOST_OK,
+    hostname: HOST_OK,
     protocol: PROTOCOL_OK
   }).ready(err => {
     t.error(err)

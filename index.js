@@ -3,20 +3,37 @@
 const fp = require('fastify-plugin')
 const amqpClient = require('amqplib/callback_api')
 
-function fastifyAmqp (fastify, opts, next) {
-  const host = opts.host
-
-  if (!host) {
-    next(new Error('`host` parameter is mandatory'))
-    return
+function getTarget ({
+  frameMax,
+  heartbeat,
+  hostname,
+  locale,
+  password,
+  port,
+  url,
+  username,
+  vhost
+}) {
+  if (url) {
+    return url
+  } else if (hostname) {
+    return {
+      frameMax,
+      heartbeat,
+      hostname,
+      locale,
+      password,
+      port,
+      username,
+      vhost
+    }
+  } else {
+    throw new Error('`url` parameter is mandatory if no hostname is provided')
   }
-  const protocol = opts.protocol || 'amqp'
-  const port = opts.port || 5672
-  const user = opts.user || 'guest'
-  const pass = opts.pass || 'guest'
-  const timeout = opts.timeout || 10000
+}
 
-  amqpClient.connect(`${protocol}://${user}:${pass}@${host}:${port}`, { timeout }, function (err, connection) {
+function fastifyAmqp (fastify, options, next) {
+  amqpClient.connect(getTarget(options), options.socket, function (err, connection) {
     if (err) {
       next(err)
       return

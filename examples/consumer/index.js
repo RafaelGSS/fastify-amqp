@@ -3,7 +3,7 @@ const Fastify = require('fastify')
 const app = Fastify()
 
 app.register(require('fastify-amqp'), {
-  host: 'localhost'
+  hostname: 'localhost'
 }).after(function (err) {
   if (err) throw err
 
