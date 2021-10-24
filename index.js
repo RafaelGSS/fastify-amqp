@@ -16,7 +16,9 @@ function getTarget ({
 }) {
   if (url) {
     return url
-  } else if (hostname) {
+  }
+
+  if (hostname) {
     return {
       frameMax,
       heartbeat,
@@ -27,9 +29,9 @@ function getTarget ({
       username,
       vhost
     }
-  } else {
-    throw new Error('`url` parameter is mandatory if no hostname is provided')
   }
+
+  throw new Error('`url` parameter is mandatory if no hostname is provided')
 }
 
 async function fastifyAmqp (fastify, options) {

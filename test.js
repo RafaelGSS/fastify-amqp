@@ -14,7 +14,7 @@ test('undefined connection', t => {
 
   app.register(fastifyAmqp, {}).ready(err => {
     t.equal(typeof err, typeof {})
-    t.assert(err instanceof Error)
+    t.ok(err instanceof Error)
 
     t.notOk(app.amqp, 'Should not have amqp decorator')
   })
@@ -31,7 +31,7 @@ test('invalid connection', t => {
     }
   }).ready(err => {
     t.equal(typeof err, typeof {})
-    t.assert(err instanceof Error)
+    t.ok(err instanceof Error)
 
     t.notOk(app.amqp, 'Should not have amqp decorator')
   })
