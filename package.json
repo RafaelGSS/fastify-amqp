@@ -29,7 +29,7 @@
   "homepage": "https://github.com/RafaelGSS/fastify-amqp#readme",
   "dependencies": {
     "amqplib": "^0.10.0",
-    "fastify-plugin": "^3.0.0"
+    "fastify-plugin": "^4.0.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.8.0",
